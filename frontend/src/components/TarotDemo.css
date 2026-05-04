@@ -1,103 +1,222 @@
 .tarot-demo {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .tarot-demo h2 {
   text-align: center;
-  color: #333;
-  margin-bottom: 10px;
+  color: #d64d79;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.5px;
 }
 
 .tarot-demo > p {
   text-align: center;
-  color: #666;
-  margin-bottom: 30px;
+  color: #5a4a5a;
+  margin-bottom: 40px;
   font-style: italic;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .tarot-demo button {
   display: block;
-  margin: 0 auto 30px;
-  padding: 12px 30px;
-  background-color: #9C27B0;
+  margin: 0 auto 48px;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .tarot-demo button:hover:not(:disabled) {
-  background-color: #7B1FA2;
+  background: linear-gradient(135deg, #f066a3 0%, #9f7aea 100%);
+  box-shadow: 0 12px 30px rgba(233, 30, 140, 0.4);
+  transform: translateY(-3px);
 }
 
 .tarot-demo button:disabled {
-  background-color: #ccc;
+  background: linear-gradient(135deg, #d0d0d0 0%, #b0b0b0 100%);
   cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
 }
 
 .cards-container {
-  display: flex;
-  justify-content: space-around;
-  margin: 30px 0;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 48px 0;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tarot-card {
-  flex: 1;
   perspective: 1000px;
-  height: 300px;
+  height: 320px;
 }
 
 .card-front {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d64d79 0%, #e91e8c 50%, #7c3aed 100%);
   color: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 32px 24px;
+  border-radius: 16px;
   text-align: center;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(233, 30, 140, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card-front:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 50px rgba(233, 30, 140, 0.4);
+}
+
+.card-front::before {
+  content: '✨';
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  opacity: 0.8;
+}
+
+.card-front::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 192, 224, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(15px, 15px); }
 }
 
 .card-front h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
+  margin: 0 0 12px 0;
+  font-size: 22px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.5px;
 }
 
 .card-front p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.reading-result {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .interpretation {
-  background-color: #f5f5f5;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  padding: 32px;
+  border-radius: 16px;
+  margin: 40px 0;
+  border: 1px solid rgba(240, 102, 163, 0.15);
+  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.12);
 }
 
 .interpretation h3 {
   margin-top: 0;
-  color: #333;
+  color: #d64d79;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 16px;
 }
 
 .interpretation p {
-  color: #666;
-  line-height: 1.6;
+  color: #5a4a5a;
+  line-height: 1.8;
+  font-size: 15px;
 }
 
 .booking-prompt {
   text-align: center;
-  padding: 20px;
-  background-color: #e8f5e9;
+  padding: 32px;
+  background: linear-gradient(135deg, #fce8f3 0%, #f0d9e8 100%);
+  border: 1px solid rgba(240, 102, 163, 0.2);
+  border-radius: 16px;
+  margin-top: 24px;
+}
+
+.booking-prompt p {
+  color: #5a4a5a;
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.booking-btn {
+  background: linear-gradient(135deg, #e91e8c 0%, #d64d79 100%);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(233, 30, 140, 0.3);
+}
+
+.booking-btn:hover {
+  background: linear-gradient(135deg, #f066a3 0%, #e91e8c 100%);
+  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.4);
+  transform: translateY(-2px);
+}
   border-radius: 8px;
   margin-top: 20px;
 }

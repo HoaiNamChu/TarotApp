@@ -19,8 +19,13 @@ class TarotController extends Controller
             ['id' => 4, 'name' => 'The Emperor', 'meaning' => 'Authority, establishment, father figure'],
         ];
 
-        // Get random cards (3-card reading)
-        $selectedCards = array_values(array_slice($majorArcana, array_rand($majorArcana, 3), 3));
+        // Get random cards (3-card reading) - Fixed logic
+        $randomKeys = array_rand($majorArcana, 3);
+        $selectedCards = [];
+        foreach ($randomKeys as $key) {
+            $selectedCards[] = $majorArcana[$key];
+        }
+        $selectedCards = array_values($selectedCards);
 
         // Generate AI-like interpretation
         $interpretation = $this->generateInterpretation($selectedCards);

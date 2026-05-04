@@ -29,7 +29,7 @@ function App() {
           <a href="/" className="nav-logo">✨ Tarot Booking</a>
           <ul className="nav-menu">
             <li><a href="/">Trang Chủ</a></li>
-            <li><a href="/demo">Demo Miễn Phí</a></li>
+            <li><a href="/demo">Bản Demo</a></li>
             {token ? (
               <>
                 <li><a href="/bookings">Lịch Của Tôi</a></li>
@@ -49,28 +49,34 @@ function App() {
         </div>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/demo" element={<TarotDemo />} />
-        <Route
-          path="/booking"
-          element={
-            <ProtectedRoute>
-              <BookingForm />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/bookings"
-          element={
-            <ProtectedRoute>
-              <BookingList />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/demo" element={<TarotDemo />} />
+          <Route
+            path="/booking"
+            element={
+              <ProtectedRoute>
+                <BookingForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bookings"
+            element={
+              <ProtectedRoute>
+                <BookingList />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+
+      <footer>
+        <p>&copy; 2026 Tarot Booking. Khám phá bí ẩn của vũ trụ. ✨</p>
+      </footer>
     </BrowserRouter>
   );
 }

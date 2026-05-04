@@ -1,38 +1,47 @@
 .booking-list {
   max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  min-height: calc(100vh - 80px);
 }
 
 .booking-list h2 {
-  color: #333;
+  color: #d64d79;
   margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .booking-list p {
   text-align: center;
-  color: #666;
+  color: #5a4a5a;
 }
 
 .booking-list a {
-  color: #4CAF50;
+  color: #e91e8c;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .booking-list a:hover {
+  color: #f066a3;
   text-decoration: underline;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.15);
+  border: 1px solid rgba(240, 102, 163, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 thead {
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #d64d79 0%, #e91e8c 100%);
   font-weight: bold;
+  color: white;
 }
 
 th, td {
@@ -42,56 +51,69 @@ th, td {
 }
 
 th {
-  background-color: #333;
+  background: transparent;
   color: white;
+  font-weight: 600;
 }
 
 tbody tr:hover {
-  background-color: #f9f9f9;
+  background-color: rgba(240, 102, 163, 0.08);
 }
 
 .status {
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  letter-spacing: 0.3px;
 }
 
 .status.pending {
-  background-color: #fff9c4;
-  color: #f57f17;
+  background-color: #fce8f3;
+  color: #d64d79;
+  border: 1px solid #e91e8c;
 }
 
 .status.confirmed {
-  background-color: #c8e6c9;
-  color: #2e7d32;
+  background-color: #e8d5f2;
+  color: #6b1b7d;
+  border: 1px solid #c084fc;
 }
 
 .status.completed {
-  background-color: #bbdefb;
-  color: #1565c0;
+  background-color: #d4edff;
+  color: #4a5f7f;
+  border: 1px solid #7c3aed;
 }
 
 .status.cancelled {
-  background-color: #ffcdd2;
-  color: #c62828;
+  background-color: #ffe0e8;
+  color: #c91a3a;
+  border: 1px solid #e91e8c;
 }
 
 .btn-delete {
-  padding: 6px 12px;
-  background-color: #f44336;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #e91e8c 0%, #d64d79 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(233, 30, 140, 0.2);
 }
 
 .btn-delete:hover:not(:disabled) {
-  background-color: #d32f2f;
+  background: linear-gradient(135deg, #f066a3 0%, #e91e8c 100%);
+  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.3);
+  transform: translateY(-2px);
 }
 
 .btn-delete:disabled {
-  background-color: #ccc;
+  background-color: #d0d0d0;
   cursor: not-allowed;
+  box-shadow: none;
 }
