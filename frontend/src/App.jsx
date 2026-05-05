@@ -5,7 +5,13 @@ import { Login, Register } from './components/Auth';
 import { TarotDemo } from './components/TarotDemo';
 import { BookingForm } from './components/Booking';
 import { BookingList } from './components/BookingList';
-import { AdminDashboard } from './components/AdminDashboard';
+import { AdminLayout } from './layouts/AdminLayout';
+import { AdminDashboard } from './pages/admin/AdminDashboard';
+import { AdminBookings } from './pages/admin/AdminBookings';
+import { AdminReadings } from './pages/admin/AdminReadings';
+import { AdminPayments } from './pages/admin/AdminPayments';
+import { AdminUsers } from './pages/admin/AdminUsers';
+import { AdminSettings } from './pages/admin/AdminSettings';
 import './App.css';
 
 function ProtectedRoute({ children }) {
@@ -16,7 +22,6 @@ function ProtectedRoute({ children }) {
 function AdminRoute({ children }) {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
-  const isLoading = useAuthStore((state) => state.isLoading);
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -27,6 +32,51 @@ function AdminRoute({ children }) {
   }
 
   return user.role === 'admin' ? children : <Navigate to="/" />;
+}
+
+function UserLayout({ children }) {
+  const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
+
+  const handleLogout = () => {
+    useAuthStore.setState({ user: null, token: null });
+    localStorage.removeItem('auth_token');
+    window.location.href = '/';
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        <div className="nav-container">
+          <a href="/" className="nav-logo">✨ Tarot Booking</a>
+          <ul className="nav-menu">
+            <li><a href="/">Trang Chủ</a></li>
+            <li><a href="/demo">Bản Demo</a></li>
+            {token ? (
+              <>
+                <li><a href="/bookings">Lịch Của Tôi</a></li>
+                {user?.role === 'admin' && <li><a href="/admin/dashboard">Admin</a></li>}
+                <li><button onClick={handleLogout}>Đăng Xuất</button></li>
+              </>
+            ) : (
+              <>
+                <li><a href="/login">Đăng Nhập</a></li>
+                <li><a href="/register">Đăng Ký</a></li>
+              </>
+            )}
+          </ul>
+        </div>
+      </nav>
+
+      <main className="main-content">
+        {children}
+      </main>
+
+      <footer>
+        <p>&copy; 2026 Tarot Booking. Khám phá bí ẩn của vũ trụ. ✨</p>
+      </footer>
+    </>
+  );
 }
 
 function App() {
@@ -40,70 +90,94 @@ function App() {
     }
   }, [token, user, getMe]);
 
+  const renderAdminDashboard = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminDashboard />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
+  const renderAdminBookings = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminBookings />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
+  const renderAdminReadings = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminReadings />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
+  const renderAdminPayments = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminPayments />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
+  const renderAdminUsers = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminUsers />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
+  const renderAdminSettings = () => (
+    <AdminRoute>
+      <AdminLayout>
+        <AdminSettings />
+      </AdminLayout>
+    </AdminRoute>
+  );
+
   return (
     <BrowserRouter>
-      <nav className="navbar">
-        <div className="nav-container">
-          <a href="/" className="nav-logo">✨ Tarot Booking</a>
-          <ul className="nav-menu">
-            <li><a href="/">Trang Chủ</a></li>
-            <li><a href="/demo">Bản Demo</a></li>
-            {token ? (
-              <>
-                <li><a href="/bookings">Lịch Của Tôi</a></li>
-                {user?.role === 'admin' && <li><a href="/admin">Admin</a></li>}
-                <li><button onClick={() => {
-                  useAuthStore.setState({ user: null, token: null });
-                  localStorage.removeItem('auth_token');
-                  window.location.href = '/';
-                }}>Đăng Xuất</button></li>
-              </>
-            ) : (
-              <>
-                <li><a href="/login">Đăng Nhập</a></li>
-                <li><a href="/register">Đăng Ký</a></li>
-              </>
-            )}
-          </ul>
-        </div>
-      </nav>
+      <Routes>
+        {/* Login/Register - No Layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/demo" element={<TarotDemo />} />
-          <Route
-            path="/booking"
-            element={
+        {/* Admin Routes - AdminLayout */}
+        <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+        <Route path="/admin/dashboard" element={renderAdminDashboard()} />
+        <Route path="/admin/bookings" element={renderAdminBookings()} />
+        <Route path="/admin/readings" element={renderAdminReadings()} />
+        <Route path="/admin/payments" element={renderAdminPayments()} />
+        <Route path="/admin/users" element={renderAdminUsers()} />
+        <Route path="/admin/settings" element={renderAdminSettings()} />
+
+        {/* User Routes - UserLayout */}
+        <Route path="/" element={<UserLayout><HomePage /></UserLayout>} />
+        <Route path="/demo" element={<UserLayout><TarotDemo /></UserLayout>} />
+        <Route
+          path="/booking"
+          element={
+            <UserLayout>
               <ProtectedRoute>
                 <BookingForm />
               </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/bookings"
-            element={
+            </UserLayout>
+          }
+        />
+        <Route
+          path="/bookings"
+          element={
+            <UserLayout>
               <ProtectedRoute>
                 <BookingList />
               </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
-        </Routes>
-      </main>
-
-      <footer>
-        <p>&copy; 2026 Tarot Booking. Khám phá bí ẩn của vũ trụ. ✨</p>
-      </footer>
+            </UserLayout>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

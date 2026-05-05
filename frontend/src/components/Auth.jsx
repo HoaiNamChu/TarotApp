@@ -7,12 +7,21 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const login = useAuthStore((state) => state.login);
+  const user = useAuthStore((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login({ email, password });
-      window.location.href = '/dashboard';
+      // Redirect based on user role
+      setTimeout(() => {
+        const currentUser = useAuthStore.getState().user;
+        if (currentUser?.role === 'admin') {
+          window.location.href = '/admin/dashboard';
+        } else {
+          window.location.href = '/';
+        }
+      }, 100);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
