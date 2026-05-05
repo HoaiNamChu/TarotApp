@@ -65,4 +65,25 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+
+    public function adminUsers(Request $request)
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
+    public function updateRole(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'role' => 'required|in:user,admin',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update(['role' => $validated['role']]);
+
+        return response()->json([
+            'message' => 'User role updated successfully',
+            'user' => $user,
+        ]);
+    }
 }

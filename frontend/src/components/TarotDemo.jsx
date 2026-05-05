@@ -16,7 +16,7 @@ export function TarotDemo() {
       setCards(response.data.cards);
       setInterpretation(response.data.interpretation);
     } catch (err) {
-      setError('Failed to get reading. Please try again.');
+      setError('Lấy bài thất bại. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }

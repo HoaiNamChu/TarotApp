@@ -10,7 +10,7 @@
 
 .tarot-demo h2 {
   text-align: center;
-  color: #d64d79;
+  color: #8a315b;
   margin-bottom: 12px;
   font-weight: 700;
   font-size: 32px;
@@ -19,7 +19,7 @@
 
 .tarot-demo > p {
   text-align: center;
-  color: #5a4a5a;
+  color: #6d3e57;
   margin-bottom: 40px;
   font-style: italic;
   font-size: 16px;
@@ -30,29 +30,29 @@
   display: block;
   margin: 0 auto 48px;
   padding: 14px 40px;
-  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
-  color: white;
+  background: linear-gradient(135deg, #ff8fb3 0%, #ffc0e0 100%);
+  color: #4a2142;
   border: none;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 140, 187, 0.3);
   letter-spacing: 0.5px;
 }
 
 .tarot-demo button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #f066a3 0%, #9f7aea 100%);
-  box-shadow: 0 12px 30px rgba(233, 30, 140, 0.4);
+  background: linear-gradient(135deg, #ffc0e0 0%, #ff8fb3 100%);
+  box-shadow: 0 12px 30px rgba(255, 140, 187, 0.4);
   transform: translateY(-3px);
 }
 
 .tarot-demo button:disabled {
-  background: linear-gradient(135deg, #d0d0d0 0%, #b0b0b0 100%);
+  background: linear-gradient(135deg, #f2d7e2 0%, #e8c7d8 100%);
   cursor: not-allowed;
   box-shadow: none;
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .cards-container {
@@ -80,8 +80,8 @@
 }
 
 .card-front {
-  background: linear-gradient(135deg, #d64d79 0%, #e91e8c 50%, #7c3aed 100%);
-  color: white;
+  background: linear-gradient(135deg, #ffbedb 0%, #ff8fb3 55%, #ffbfd7 100%);
+  color: #532945;
   padding: 32px 24px;
   border-radius: 16px;
   text-align: center;
@@ -90,7 +90,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 12px 40px rgba(233, 30, 140, 0.35);
+  box-shadow: 0 12px 40px rgba(255, 140, 187, 0.25);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -99,7 +99,7 @@
 
 .card-front:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 50px rgba(233, 30, 140, 0.4);
+  box-shadow: 0 16px 50px rgba(255, 140, 187, 0.35);
 }
 
 .card-front::before {
@@ -118,7 +118,7 @@
   left: -50%;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(255, 192, 224, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 192, 224, 0.28) 0%, transparent 70%);
   border-radius: 50%;
   animation: shimmer 4s ease-in-out infinite;
 }
@@ -166,20 +166,20 @@
   padding: 32px;
   border-radius: 16px;
   margin: 40px 0;
-  border: 1px solid rgba(240, 102, 163, 0.15);
-  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.12);
+  border: 1px solid rgba(255, 182, 203, 0.3);
+  box-shadow: 0 8px 32px rgba(255, 182, 203, 0.16);
 }
 
 .interpretation h3 {
   margin-top: 0;
-  color: #d64d79;
+  color: #8a315b;
   font-weight: 700;
   font-size: 20px;
   margin-bottom: 16px;
 }
 
 .interpretation p {
-  color: #5a4a5a;
+  color: #6d3e57;
   line-height: 1.8;
   font-size: 15px;
 }
@@ -187,38 +187,35 @@
 .booking-prompt {
   text-align: center;
   padding: 32px;
-  background: linear-gradient(135deg, #fce8f3 0%, #f0d9e8 100%);
-  border: 1px solid rgba(240, 102, 163, 0.2);
+  background: linear-gradient(135deg, #ffe7f0 0%, #ffd6e8 100%);
+  border: 1px solid rgba(255, 182, 203, 0.2);
   border-radius: 16px;
   margin-top: 24px;
 }
 
 .booking-prompt p {
-  color: #5a4a5a;
+  color: #6d3e57;
   font-size: 16px;
   margin-bottom: 20px;
   font-weight: 500;
 }
 
 .booking-btn {
-  background: linear-gradient(135deg, #e91e8c 0%, #d64d79 100%);
-  color: white;
+  background: linear-gradient(135deg, #ff8fb3 0%, #ffc0e0 100%);
+  color: #4a2142;
   border: none;
   padding: 12px 32px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(233, 30, 140, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 140, 187, 0.3);
 }
 
 .booking-btn:hover {
-  background: linear-gradient(135deg, #f066a3 0%, #e91e8c 100%);
-  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.4);
+  background: linear-gradient(135deg, #ffc0e0 0%, #ff8fb3 100%);
+  box-shadow: 0 8px 20px rgba(255, 140, 187, 0.4);
   transform: translateY(-2px);
-}
-  border-radius: 8px;
-  margin-top: 20px;
 }
 
 .booking-prompt p {

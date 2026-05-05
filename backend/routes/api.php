@@ -31,5 +31,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bookings/{bookingId}/payment', [PaymentController::class, 'getByBooking']);
 });
 
+// Admin routes
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/bookings', [BookingController::class, 'adminIndex']);
+    Route::get('/users', [AuthController::class, 'adminUsers']);
+    Route::put('/users/{id}/role', [AuthController::class, 'updateRole']);
+});
+
 // Public tarot demo
 Route::post('/tarot/demo', [TarotController::class, 'demo']);

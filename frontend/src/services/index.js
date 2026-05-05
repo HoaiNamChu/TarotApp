@@ -27,3 +27,11 @@ export const paymentService = {
   create: (data) => api.post('/payments', data),
   getByBooking: (bookingId) => api.get(`/bookings/${bookingId}/payment`),
 };
+
+export const adminService = {
+  getUsers: () => api.get('/admin/users'),
+  updateUserRole: (userId, role) => api.put(`/admin/users/${userId}/role`, { role }),
+  getBookings: () => api.get('/admin/bookings'),
+  updateBookingStatus: (bookingId, data) => api.put(`/bookings/${bookingId}`, data),
+  deleteBooking: (bookingId) => api.delete(`/bookings/${bookingId}`),
+};

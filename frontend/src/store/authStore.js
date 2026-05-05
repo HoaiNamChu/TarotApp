@@ -43,11 +43,13 @@ export const useAuthStore = create((set) => ({
   },
 
   getMe: async () => {
+    set({ isLoading: true, error: null });
     try {
       const response = await authService.getMe();
-      set({ user: response.data });
+      set({ user: response.data, isLoading: false });
     } catch (error) {
       console.error('Error fetching user:', error);
+      set({ isLoading: false, error: error.response?.data?.message });
     }
   },
 }));

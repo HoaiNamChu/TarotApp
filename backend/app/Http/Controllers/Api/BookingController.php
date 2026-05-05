@@ -47,7 +47,9 @@ class BookingController extends Controller
     {
         $booking = Booking::findOrFail($id);
 
-        $this->authorize('update', $booking);
+        if ($request->user()->role !== 'admin' && $booking->user_id !== $request->user()->id) {
+            abort(403, 'Unauthorized');
+        }
 
         $validated = $request->validate([
             'booking_date' => 'date|after:today',
@@ -64,12 +66,22 @@ class BookingController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
-        $this->authorize('delete', $booking);
+
+        if ($request->user()->role !== 'admin' && $booking->user_id !== $request->user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
         $booking->delete();
 
         return response()->json(['message' => 'Booking deleted successfully']);
+    }
+
+    public function adminIndex(Request $request)
+    {
+        $bookings = Booking::with('user', 'tarotReading', 'payment')->get();
+        return response()->json($bookings);
     }
 }

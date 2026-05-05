@@ -5,6 +5,7 @@ import { Login, Register } from './components/Auth';
 import { TarotDemo } from './components/TarotDemo';
 import { BookingForm } from './components/Booking';
 import { BookingList } from './components/BookingList';
+import { AdminDashboard } from './components/AdminDashboard';
 import './App.css';
 
 function ProtectedRoute({ children }) {
@@ -12,15 +13,32 @@ function ProtectedRoute({ children }) {
   return token ? children : <Navigate to="/login" />;
 }
 
+function AdminRoute({ children }) {
+  const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
+  const isLoading = useAuthStore((state) => state.isLoading);
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!user) {
+    return <div className="loading">Đang xác thực quyền admin...</div>;
+  }
+
+  return user.role === 'admin' ? children : <Navigate to="/" />;
+}
+
 function App() {
   const getMe = useAuthStore((state) => state.getMe);
   const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
-    if (token) {
+    if (token && !user) {
       getMe();
     }
-  }, [token, getMe]);
+  }, [token, user, getMe]);
 
   return (
     <BrowserRouter>
@@ -33,6 +51,7 @@ function App() {
             {token ? (
               <>
                 <li><a href="/bookings">Lịch Của Tôi</a></li>
+                {user?.role === 'admin' && <li><a href="/admin">Admin</a></li>}
                 <li><button onClick={() => {
                   useAuthStore.setState({ user: null, token: null });
                   localStorage.removeItem('auth_token');
@@ -69,6 +88,14 @@ function App() {
               <ProtectedRoute>
                 <BookingList />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
             }
           />
         </Routes>
