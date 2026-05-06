@@ -6,24 +6,24 @@
 }
 
 .booking-list h2 {
-  color: #d64d79;
+  color: #FF7DB8;
   margin-bottom: 20px;
   font-weight: 600;
 }
 
 .booking-list p {
   text-align: center;
-  color: #5a4a5a;
+  color: #8B6B7A;
 }
 
 .booking-list a {
-  color: #e91e8c;
+  color: #FF9FCA;
   text-decoration: none;
   font-weight: 500;
 }
 
 .booking-list a:hover {
-  color: #f066a3;
+  color: #FF7DB8;
   text-decoration: underline;
 }
 
@@ -32,14 +32,14 @@ table {
   border-collapse: collapse;
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.15);
-  border: 1px solid rgba(240, 102, 163, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 179, 217, 0.15);
+  border: 1px solid rgba(255, 179, 217, 0.2);
   border-radius: 8px;
   overflow: hidden;
 }
 
 thead {
-  background: linear-gradient(135deg, #d64d79 0%, #e91e8c 100%);
+  background: linear-gradient(135deg, #FFB3D9 0%, #FF9FCA 100%);
   font-weight: bold;
   color: white;
 }
@@ -57,7 +57,7 @@ th {
 }
 
 tbody tr:hover {
-  background-color: rgba(240, 102, 163, 0.08);
+  background-color: rgba(255, 179, 217, 0.08);
 }
 
 .status {
@@ -70,32 +70,32 @@ tbody tr:hover {
 }
 
 .status.pending {
-  background-color: #fce8f3;
-  color: #d64d79;
-  border: 1px solid #e91e8c;
+  background-color: #FFE8F0;
+  color: #FF7DB8;
+  border: 1px solid #FF9FCA;
 }
 
 .status.confirmed {
-  background-color: #e8d5f2;
-  color: #6b1b7d;
-  border: 1px solid #c084fc;
+  background-color: #FFD4E5;
+  color: #8B4D7E;
+  border: 1px solid #FFB3D9;
 }
 
 .status.completed {
-  background-color: #d4edff;
-  color: #4a5f7f;
-  border: 1px solid #7c3aed;
+  background-color: #E8D5F2;
+  color: #8B4D7E;
+  border: 1px solid #C084FC;
 }
 
 .status.cancelled {
-  background-color: #ffe0e8;
-  color: #c91a3a;
-  border: 1px solid #e91e8c;
+  background-color: rgba(255, 179, 217, 0.15);
+  color: #D64D79;
+  border: 1px solid #FF9FCA;
 }
 
 .btn-delete {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #e91e8c 0%, #d64d79 100%);
+  background: linear-gradient(135deg, #FF9FCA 0%, #FFB3D9 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -103,12 +103,12 @@ tbody tr:hover {
   font-size: 14px;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(233, 30, 140, 0.2);
+  box-shadow: 0 4px 12px rgba(255, 159, 202, 0.2);
 }
 
 .btn-delete:hover:not(:disabled) {
-  background: linear-gradient(135deg, #f066a3 0%, #e91e8c 100%);
-  box-shadow: 0 6px 16px rgba(233, 30, 140, 0.3);
+  background: linear-gradient(135deg, #FF7DB8 0%, #FF9FCA 100%);
+  box-shadow: 0 6px 16px rgba(255, 159, 202, 0.3);
   transform: translateY(-2px);
 }
 

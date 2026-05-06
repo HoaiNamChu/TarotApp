@@ -16,7 +16,7 @@
 .booking-form-container h2 {
   text-align: center;
   margin-bottom: 40px;
-  color: #d64d79;
+  color: #FF7DB8;
   font-weight: 700;
   font-size: 28px;
 }
@@ -29,7 +29,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #5a4a5a;
+  color: #8B6B7A;
   font-size: 14px;
   letter-spacing: 0.3px;
 }
@@ -38,11 +38,11 @@
 .form-group textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid rgba(240, 102, 163, 0.2);
+  border: 1px solid rgba(255, 179, 217, 0.3);
   border-radius: 8px;
   font-size: 15px;
   box-sizing: border-box;
-  background: rgba(255, 240, 246, 0.5);
+  background: rgba(255, 232, 240, 0.6);
   transition: all 0.3s ease;
   font-family: inherit;
 }
@@ -55,29 +55,29 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #e91e8c;
-  box-shadow: 0 0 12px rgba(233, 30, 140, 0.25);
-  background: rgba(255, 248, 250, 1);
+  border-color: #FF9FCA;
+  box-shadow: 0 0 12px rgba(255, 159, 202, 0.3);
+  background: rgba(255, 240, 248, 1);
 }
 
 .success-message {
-  color: #6b1b7d;
+  color: #8B4D7E;
   padding: 14px 16px;
-  background-color: #f0d9e8;
+  background-color: #FFE8F0;
   border-radius: 8px;
   margin-bottom: 20px;
-  border-left: 4px solid #d64d79;
+  border-left: 4px solid #FF9FCA;
   font-size: 14px;
   font-weight: 500;
 }
 
 .error-message {
-  color: #c91a3a;
+  color: #D64D79;
   padding: 14px 16px;
-  background-color: #ffe0e8;
+  background-color: rgba(255, 179, 217, 0.15);
   border-radius: 8px;
   margin-bottom: 20px;
-  border-left: 4px solid #e91e8c;
+  border-left: 4px solid #FF9FCA;
   font-size: 14px;
   font-weight: 500;
 }
@@ -85,7 +85,7 @@
 .booking-form-container button {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #e91e8c 0%, #d64d79 100%);
+  background: linear-gradient(135deg, #FF9FCA 0%, #FFB3D9 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -93,13 +93,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 159, 202, 0.3);
   letter-spacing: 0.5px;
 }
 
 .booking-form-container button:hover {
-  background: linear-gradient(135deg, #f066a3 0%, #e91e8c 100%);
-  box-shadow: 0 12px 30px rgba(233, 30, 140, 0.4);
+  background: linear-gradient(135deg, #FF7DB8 0%, #FF9FCA 100%);
+  box-shadow: 0 12px 30px rgba(255, 159, 202, 0.4);
   transform: translateY(-2px);
 }
 

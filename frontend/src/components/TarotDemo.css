@@ -10,7 +10,7 @@
 
 .tarot-demo h2 {
   text-align: center;
-  color: #8a315b;
+  color: #FF7DB8;
   margin-bottom: 12px;
   font-weight: 700;
   font-size: 32px;
@@ -19,7 +19,7 @@
 
 .tarot-demo > p {
   text-align: center;
-  color: #6d3e57;
+  color: #8B6B7A;
   margin-bottom: 40px;
   font-style: italic;
   font-size: 16px;
@@ -30,26 +30,26 @@
   display: block;
   margin: 0 auto 48px;
   padding: 14px 40px;
-  background: linear-gradient(135deg, #ff8fb3 0%, #ffc0e0 100%);
-  color: #4a2142;
+  background: linear-gradient(135deg, #FF9FCA 0%, #FFB3D9 100%);
+  color: white;
   border: none;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(255, 140, 187, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 159, 202, 0.3);
   letter-spacing: 0.5px;
 }
 
 .tarot-demo button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #ffc0e0 0%, #ff8fb3 100%);
-  box-shadow: 0 12px 30px rgba(255, 140, 187, 0.4);
+  background: linear-gradient(135deg, #FF7DB8 0%, #FF9FCA 100%);
+  box-shadow: 0 12px 30px rgba(255, 159, 202, 0.4);
   transform: translateY(-3px);
 }
 
 .tarot-demo button:disabled {
-  background: linear-gradient(135deg, #f2d7e2 0%, #e8c7d8 100%);
+  background: linear-gradient(135deg, #FFD4E5 0%, #FFC0D7 100%);
   cursor: not-allowed;
   box-shadow: none;
   opacity: 0.9;
@@ -80,8 +80,8 @@
 }
 
 .card-front {
-  background: linear-gradient(135deg, #ffbedb 0%, #ff8fb3 55%, #ffbfd7 100%);
-  color: #532945;
+  background: linear-gradient(135deg, #FFD4E5 0%, #FFB3D9 55%, #FFD4E5 100%);
+  color: #8B4D7E;
   padding: 32px 24px;
   border-radius: 16px;
   text-align: center;
@@ -90,7 +90,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 12px 40px rgba(255, 140, 187, 0.25);
+  box-shadow: 0 12px 40px rgba(255, 179, 217, 0.25);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -99,7 +99,7 @@
 
 .card-front:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 50px rgba(255, 140, 187, 0.35);
+  box-shadow: 0 16px 50px rgba(255, 179, 217, 0.35);
 }
 
 .card-front::before {
@@ -118,7 +118,7 @@
   left: -50%;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(255, 192, 224, 0.28) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 179, 217, 0.3) 0%, transparent 70%);
   border-radius: 50%;
   animation: shimmer 4s ease-in-out infinite;
 }

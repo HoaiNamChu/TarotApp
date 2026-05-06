@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { useAuthStore } from '../store/authStore';
+import { useAuthModal } from '../context/AuthModalContext';
 import { useBookingStore } from '../store/bookingStore';
 import './Booking.css';
 
 export function BookingForm() {
+  const token = useAuthStore((state) => state.token);
+  const { onOpenAuthModal } = useAuthModal();
   const [formData, setFormData] = useState({
     booking_date: '',
     booking_time: '',
@@ -23,6 +27,13 @@ export function BookingForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if user is logged in
+    if (!token) {
+      onOpenAuthModal('login');
+      return;
+    }
+
     setError('');
     setSuccess('');
 

@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/authStore';
-import { useEffect } from 'react';
-import { Login, Register } from './components/Auth';
+import { useEffect, useState } from 'react';
 import { TarotDemo } from './components/TarotDemo';
 import { BookingForm } from './components/Booking';
 import { BookingList } from './components/BookingList';
+import { AuthModal } from './components/AuthModal';
+import { AuthModalProvider, useAuthModal } from './context/AuthModalContext';
 import { AdminLayout } from './layouts/AdminLayout';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminBookings } from './pages/admin/AdminBookings';
@@ -16,7 +17,7 @@ import './App.css';
 
 function ProtectedRoute({ children }) {
   const token = useAuthStore((state) => state.token);
-  return token ? children : <Navigate to="/login" />;
+  return token ? children : <Navigate to="/" />;
 }
 
 function AdminRoute({ children }) {
@@ -34,7 +35,7 @@ function AdminRoute({ children }) {
   return user.role === 'admin' ? children : <Navigate to="/" />;
 }
 
-function UserLayout({ children }) {
+function UserLayout({ children, onOpenAuthModal }) {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
 
@@ -60,8 +61,8 @@ function UserLayout({ children }) {
               </>
             ) : (
               <>
-                <li><a href="/login">Đăng Nhập</a></li>
-                <li><a href="/register">Đăng Ký</a></li>
+                <li><button onClick={() => onOpenAuthModal('login')} className="nav-auth-btn">Đăng Nhập</button></li>
+                <li><button onClick={() => onOpenAuthModal('register')} className="nav-auth-btn">Đăng Ký</button></li>
               </>
             )}
           </ul>
@@ -80,6 +81,8 @@ function UserLayout({ children }) {
 }
 
 function App() {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState('login');
   const getMe = useAuthStore((state) => state.getMe);
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
@@ -89,6 +92,15 @@ function App() {
       getMe();
     }
   }, [token, user, getMe]);
+
+  const handleOpenAuthModal = (mode) => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
+
+  const handleCloseAuthModal = () => {
+    setAuthModalOpen(false);
+  };
 
   const renderAdminDashboard = () => (
     <AdminRoute>
@@ -139,50 +151,63 @@ function App() {
   );
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Login/Register - No Layout */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <AuthModalProvider value={{ onOpenAuthModal: handleOpenAuthModal }}>
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={handleCloseAuthModal}
+        initialMode={authModalMode}
+      />
+      <BrowserRouter>
+        <Routes>
+          {/* Admin Routes - AdminLayout */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+          <Route path="/admin/dashboard" element={renderAdminDashboard()} />
+          <Route path="/admin/bookings" element={renderAdminBookings()} />
+          <Route path="/admin/readings" element={renderAdminReadings()} />
+          <Route path="/admin/payments" element={renderAdminPayments()} />
+          <Route path="/admin/users" element={renderAdminUsers()} />
+          <Route path="/admin/settings" element={renderAdminSettings()} />
 
-        {/* Admin Routes - AdminLayout */}
-        <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
-        <Route path="/admin/dashboard" element={renderAdminDashboard()} />
-        <Route path="/admin/bookings" element={renderAdminBookings()} />
-        <Route path="/admin/readings" element={renderAdminReadings()} />
-        <Route path="/admin/payments" element={renderAdminPayments()} />
-        <Route path="/admin/users" element={renderAdminUsers()} />
-        <Route path="/admin/settings" element={renderAdminSettings()} />
-
-        {/* User Routes - UserLayout */}
-        <Route path="/" element={<UserLayout><HomePage /></UserLayout>} />
-        <Route path="/demo" element={<UserLayout><TarotDemo /></UserLayout>} />
-        <Route
-          path="/booking"
-          element={
-            <UserLayout>
-              <ProtectedRoute>
+          {/* User Routes - UserLayout */}
+          <Route path="/" element={<UserLayout onOpenAuthModal={handleOpenAuthModal}><HomePage /></UserLayout>} />
+          <Route path="/demo" element={<UserLayout onOpenAuthModal={handleOpenAuthModal}><TarotDemo /></UserLayout>} />
+          <Route
+            path="/booking"
+            element={
+              <UserLayout onOpenAuthModal={handleOpenAuthModal}>
                 <BookingForm />
-              </ProtectedRoute>
-            </UserLayout>
-          }
-        />
-        <Route
-          path="/bookings"
-          element={
-            <UserLayout>
-              <ProtectedRoute>
-                <BookingList />
-              </ProtectedRoute>
-            </UserLayout>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+              </UserLayout>
+            }
+          />
+          <Route
+            path="/bookings"
+            element={
+              <UserLayout onOpenAuthModal={handleOpenAuthModal}>
+                <ProtectedRoute>
+                  <BookingList />
+                </ProtectedRoute>
+              </UserLayout>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthModalProvider>
   );
 }
 
 function HomePage() {
+  const { onOpenAuthModal } = useAuthModal();
+  const token = useAuthStore((state) => state.token);
+  
+  const handleBookingClick = (e) => {
+    e.preventDefault();
+    if (token) {
+      window.location.href = '/booking';
+    } else {
+      onOpenAuthModal('login');
+    }
+  };
+
   return (
     <div className="home">
       <section className="hero">
@@ -190,7 +215,7 @@ function HomePage() {
         <p>Đọc Tarot miễn phí hoặc đặt lịch với chuyên gia để có những lời tiên tri chính xác</p>
         <div className="hero-buttons">
           <a href="/demo" className="btn btn-primary">Thử Đọc Miễn Phí</a>
-          <a href="/booking" className="btn btn-secondary">Đặt Lịch Hẹn</a>
+          <a href="#" onClick={handleBookingClick} className="btn btn-secondary">Đặt Lịch Hẹn</a>
         </div>
       </section>
 
