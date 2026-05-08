@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { useAuthModal } from '../context/AuthModalContext';
 import { useBookingStore } from '../store/bookingStore';
 import './Booking.css';
 
 export function BookingForm() {
+  const navigate = useNavigate();
   const token = useAuthStore((state) => state.token);
   const { onOpenAuthModal } = useAuthModal();
   const [formData, setFormData] = useState({
@@ -38,14 +40,13 @@ export function BookingForm() {
     setSuccess('');
 
     try {
-      await create(formData);
-      setSuccess('Đặt lịch thành công! Vui lòng hoàn tất thanh toán.');
-      setFormData({
-        booking_date: '',
-        booking_time: '',
-        notes: '',
-        total_price: 100,
-      });
+      const response = await create(formData);
+      setSuccess('Đặt lịch thành công! Đang chuyển hướng đến thanh toán...');
+      
+      // Redirect to payment page after 1.5 seconds
+      setTimeout(() => {
+        navigate(`/payment?bookingId=${response.booking.id}`);
+      }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create booking');
     }

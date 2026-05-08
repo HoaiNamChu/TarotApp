@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
 import './AuthModal.css';
 
@@ -13,6 +13,15 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
   
   const login = useAuthStore((state) => state.login);
   const register = useAuthStore((state) => state.register);
+
+  // Reset mode and form when modal opens or initialMode changes
+  useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode);
+      resetForm();
+      setError('');
+    }
+  }, [isOpen, initialMode]);
 
   const handleSwitchMode = () => {
     setMode(mode === 'login' ? 'register' : 'login');

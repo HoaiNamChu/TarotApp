@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { TarotDemo } from './components/TarotDemo';
 import { BookingForm } from './components/Booking';
 import { BookingList } from './components/BookingList';
+import { Payment } from './components/Payment';
 import { AuthModal } from './components/AuthModal';
 import { AuthModalProvider, useAuthModal } from './context/AuthModalContext';
 import { AdminLayout } from './layouts/AdminLayout';
@@ -176,6 +177,16 @@ function App() {
             element={
               <UserLayout onOpenAuthModal={handleOpenAuthModal}>
                 <BookingForm />
+              </UserLayout>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <UserLayout onOpenAuthModal={handleOpenAuthModal}>
+                <ProtectedRoute>
+                  <Payment />
+                </ProtectedRoute>
               </UserLayout>
             }
           />

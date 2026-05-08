@@ -21,10 +21,15 @@
   max-width: 420px;
   box-shadow: 0 20px 60px rgba(255, 179, 217, 0.3);
   animation: slideUp 0.3s ease;
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 1px solid rgba(255, 179, 217, 0.2);
   pointer-events: auto;
   z-index: 1000;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .auth-modal-close {
@@ -53,11 +58,11 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate(-50%, -50%) translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%) translateY(0);
   }
 }
 

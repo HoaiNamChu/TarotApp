@@ -117,3 +117,29 @@ tbody tr:hover {
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.btn-payment {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.2);
+  margin-right: 8px;
+}
+
+.btn-payment:hover:not(:disabled) {
+  background: linear-gradient(135deg, #9370db 0%, #b565f5 100%);
+  box-shadow: 0 6px 16px rgba(167, 139, 250, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-payment:disabled {
+  background-color: #d0d0d0;
+  cursor: not-allowed;
+  box-shadow: none;
+}

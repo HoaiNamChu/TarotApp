@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useBookingStore } from '../store/bookingStore';
 import './BookingList.css';
 
 export function BookingList() {
+  const navigate = useNavigate();
   const bookings = useBookingStore((state) => state.bookings);
   const getAll = useBookingStore((state) => state.getAll);
   const deleteBooking = useBookingStore((state) => state.delete);
@@ -21,6 +23,10 @@ export function BookingList() {
     if (window.confirm('Bạn chắc chắn muốn hủy lịch này?')) {
       await deleteBooking(id);
     }
+  };
+
+  const handlePayment = (bookingId) => {
+    navigate(`/payment?bookingId=${bookingId}`);
   };
 
   return (
@@ -49,13 +55,33 @@ export function BookingList() {
                 </td>
                 <td>{booking.total_price.toLocaleString('vi-VN')} VND</td>
                 <td>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(booking.id)}
-                    disabled={isLoading}
-                  >
-                    Hủy
-                  </button>
+                  {booking.status === 'pending' && (
+                    <>
+                      <button
+                        className="btn-payment"
+                        onClick={() => handlePayment(booking.id)}
+                        disabled={isLoading}
+                      >
+                        Thanh Toán
+                      </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(booking.id)}
+                        disabled={isLoading}
+                      >
+                        Hủy
+                      </button>
+                    </>
+                  )}
+                  {booking.status !== 'pending' && (
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(booking.id)}
+                      disabled={isLoading}
+                    >
+                      Xóa
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
